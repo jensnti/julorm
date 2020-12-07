@@ -13,3 +13,7 @@ Nytt försök
 * python3 -m pygame.examples.aliens
 
 Funkar!
+
+Dags att testa något tutorial
+
+https://coderslegacy.com/python/pygame-platformer-game-development/
