@@ -5,6 +5,11 @@ Det är ju Python!
 Blir det ett spel, det får vi se...
 
 För att komma igång behöver jag installera pygame. Då kör jag.
-```
-python3 -m pip install -U pygame --user
-```
+Det fungerade inte under WSL.
+Nytt försök
+
+* https://chocolatey.org/install
+* choco install python3
+* python3 -m pygame.examples.aliens
+
+Funkar!
