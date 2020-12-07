@@ -8,19 +8,20 @@ class Player(pygame.sprite.Sprite):
     self.ACC = ACC
     self.FRIC = FRIC
     self.WIDTH = WIDTH
+    self.jumping = False
 
     self.vec = pygame.math.Vector2  # 2 for two dimensional
 
     self.surf = pygame.Surface((30, 30))
-    self.surf.fill((128,255,40))
-    self.rect = self.surf.get_rect(center = (10, 420))
+    self.surf.fill((255,255,0))
+    self.rect = self.surf.get_rect()
 
-    self.pos = self.vec((10, 385))
+    self.pos = self.vec((10, 360))
     self.vel = self.vec(0,0)
     self.acc = self.vec(0,0)
 
   def move(self):
-    self.acc = self.vec(0,0)
+    self.acc = self.vec(0,0.5)
  
     pressed_keys = pygame.key.get_pressed()
             
@@ -39,3 +40,23 @@ class Player(pygame.sprite.Sprite):
       self.pos.x = self.WIDTH
      
     self.rect.midbottom = self.pos
+
+  def jump(self, platforms):
+    hits = pygame.sprite.spritecollide(self, platforms, False)
+    if hits and not self.jumping:
+      self.jumping = True
+      self.vel.y = -15
+
+  def cancel_jump(self):
+    if self.jumping:
+      if self.vel.y < -3:
+        self.vel.y = -3
+
+  def update(self, platforms):
+    hits = pygame.sprite.spritecollide(self ,platforms, False)
+    if self.vel.y > 0:
+      if hits:
+        if self.pos.y < hits[0].rect.bottom:
+          self.pos.y = hits[0].rect.top +1
+          self.vel.y = 0
+          self.jumping = False
